@@ -50,7 +50,8 @@ public class UserController {
 
         userService.insert(userDTO);
 
-        return new ResponseEntity<UserDTO>( userDTO, HttpStatus.CREATED);    }
+        return new ResponseEntity<UserDTO>(userDTO, HttpStatus.CREATED);
+    }
 
     @Operation(summary = "Get user by id")
     @ApiResponses(value = {

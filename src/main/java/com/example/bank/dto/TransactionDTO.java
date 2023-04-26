@@ -2,15 +2,13 @@ package com.example.bank.dto;
 
 import java.time.LocalDateTime;
 
-import com.example.bank.model.Transaction;
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
+@AllArgsConstructor
 public class TransactionDTO {
 	private Long id;
 	private LocalDateTime dateOfTransaction;
@@ -20,17 +18,5 @@ public class TransactionDTO {
 	private Double balanceBeforeTransaction;
 	private Double balanceAfterTransaction;
 	private String message;
-
-	public TransactionDTO(Transaction obj) {
-		super();
-		this.id = obj.getId();
-		this.dateOfTransaction = obj.getDateOfTransaction();
-		this.isItWithdraw = obj.getIsItWithdraw();
-		this.isItDeposit = obj.getIsItDeposit();
-		this.valueOfTransaction = obj.getValueOfTransaction();
-		this.balanceBeforeTransaction = obj.getBalanceBeforeTransaction();
-		this.balanceAfterTransaction = obj.getBalanceAfterTransaction();
-		this.message = obj.getMessage();
-	}
 
 }

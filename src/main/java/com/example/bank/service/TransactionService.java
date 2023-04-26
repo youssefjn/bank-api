@@ -12,22 +12,31 @@ import com.example.bank.model.User;
 import com.example.bank.repository.TransactionRepository;
 
 import lombok.RequiredArgsConstructor;
+
 @Service
 @RequiredArgsConstructor
 public class TransactionService {
-private final TransactionRepository transactionRepository;
+    private final TransactionRepository transactionRepository;
+
     public List<Transaction> findAll() {
         return transactionRepository.findAll();
     }
-    public TransactionDTO fromDTO(Transaction obj) {
-        return new TransactionDTO(obj);
+
+    public TransactionDTO fromDTO(Transaction transaction) {
+        return new TransactionDTO(transaction.getId(), transaction.getDateOfTransaction(),
+                transaction.getIsItWithdraw(), transaction.getIsItDeposit(), transaction.getValueOfTransaction(),
+                transaction.getBalanceBeforeTransaction(), transaction.getBalanceAfterTransaction(),
+                transaction.getMessage());
     }
+
     public Transaction findById(Long id) {
-        Optional<Transaction> transaction= transactionRepository.findById(id);
-        return transaction.orElseThrow(() -> new ObjectNotFoundException("Transaction with id "+ id + " does not exist"));
+        Optional<Transaction> transaction = transactionRepository.findById(id);
+        return transaction
+                .orElseThrow(() -> new ObjectNotFoundException("Transaction with id " + id + " does not exist"));
     }
+
     public List<Transaction> findByUser(User user) {
         return transactionRepository.findByUser(user);
     }
-    
+
 }

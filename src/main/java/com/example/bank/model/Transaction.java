@@ -14,6 +14,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Table(name = "TRANSACTIONS")
 
 @Entity
@@ -26,14 +27,14 @@ public class Transaction {
     private Long id;
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dateOfTransaction;
-    private Boolean isItWithdraw;  
+    private Boolean isItWithdraw;
     private Boolean isItDeposit;
     private Double valueOfTransaction;
-    private Double balanceBeforeTransaction;  
+    private Double balanceBeforeTransaction;
     private Double balanceAfterTransaction;
     private String message;
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user ;  
+    private User user;
 }

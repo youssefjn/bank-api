@@ -12,5 +12,5 @@ public class ErrorMessage {
     private Date timestamp;
     private String message;
     private String description;
-    
+
 }

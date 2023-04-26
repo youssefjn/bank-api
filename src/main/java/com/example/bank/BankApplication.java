@@ -11,8 +11,8 @@ import com.example.bank.model.User;
 import com.example.bank.repository.UserRepository;
 
 @SpringBootApplication
-public class BankApplication implements CommandLineRunner{
-	
+public class BankApplication implements CommandLineRunner {
+
 	@Autowired
 	private UserRepository userRepository;
 
@@ -23,7 +23,7 @@ public class BankApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		User user = new User(null, "Test User", "123456789", "test", "12345", 10.0);
-		
+
 		userRepository.saveAll(Arrays.asList(user));
 	}
 

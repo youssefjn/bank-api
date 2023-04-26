@@ -34,28 +34,30 @@ public class UserService {
         Optional<User> user = userRepository.findById(id);
         return user.orElseThrow(() -> new ObjectNotFoundException("User with id " + id + " not found"));
     }
-@Transactional
-    public  Optional<User> insert(UserDTO userDTO) {
-       User newUser = new User();
-       newUser.setName(userDTO.getName());
-       newUser.setCpf(userDTO.getCpf());
-       newUser.setLogin(userDTO.getLogin());
-       newUser.setPassword(userDTO.getPassword());
-       newUser.setBalance(0.0);
-       newUser.setTransactions(null);
-      return  Optional.ofNullable(userRepository.save(newUser));
-        
-        
+
+    @Transactional
+    public Optional<User> insert(UserDTO userDTO) {
+        User newUser = new User();
+        newUser.setName(userDTO.getName());
+        newUser.setCpf(userDTO.getCpf());
+        newUser.setLogin(userDTO.getLogin());
+        newUser.setPassword(userDTO.getPassword());
+        newUser.setBalance(0.0);
+        newUser.setTransactions(null);
+        return Optional.ofNullable(userRepository.save(newUser));
+
     }
 
     public Transaction makeWithdrawal(User user, Double value) {
         if (user.makeWithdrawal(value)) {
-            Transaction transaction=new Transaction(null, LocalDateTime.now(), true, false, value, user.getBalance()+value, user.getBalance(), "Successful transaction", user);
+            Transaction transaction = new Transaction(null, LocalDateTime.now(), true, false, value,
+                    user.getBalance() + value, user.getBalance(), "Successful transaction", user);
             userRepository.save(user);
             transactionRepository.save(transaction);
             return transaction;
         } else {
-            Transaction transaction=new Transaction(null, LocalDateTime.now(), true, false, value, user.getBalance(), user.getBalance(), "Error , transaction not approved", user);
+            Transaction transaction = new Transaction(null, LocalDateTime.now(), true, false, value, user.getBalance(),
+                    user.getBalance(), "Error , transaction not approved", user);
             transactionRepository.save(transaction);
             return transaction;
         }
@@ -63,12 +65,14 @@ public class UserService {
 
     public Transaction makeDeposit(User user, Double value) {
         if (user.makeDeposit(value)) {
-            Transaction transaction=new Transaction(null, LocalDateTime.now(), false, true, value, user.getBalance()-value, user.getBalance(), "Successful transaction", user);
+            Transaction transaction = new Transaction(null, LocalDateTime.now(), false, true, value,
+                    user.getBalance() - value, user.getBalance(), "Successful transaction", user);
             userRepository.save(user);
             transactionRepository.save(transaction);
             return transaction;
         } else {
-            Transaction transaction=new Transaction(null, LocalDateTime.now(), false, true, value, user.getBalance(), user.getBalance(), "Error , transaction not approved", user);
+            Transaction transaction = new Transaction(null, LocalDateTime.now(), false, true, value, user.getBalance(),
+                    user.getBalance(), "Error , transaction not approved", user);
             transactionRepository.save(transaction);
             return transaction;
         }

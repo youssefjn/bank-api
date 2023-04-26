@@ -41,7 +41,7 @@ public class TransactionController {
         if (transactionsDTO.isEmpty()) {
             return new ResponseEntity<>(" no Transactions found ", HttpStatus.NO_CONTENT);
         }
-            return new ResponseEntity<List<TransactionDTO>>(transactionsDTO, HttpStatus.OK);
+        return new ResponseEntity<List<TransactionDTO>>(transactionsDTO, HttpStatus.OK);
     }
 
     @Operation(summary = "Get transaction by id")
@@ -50,7 +50,7 @@ public class TransactionController {
             @ApiResponse(responseCode = "404", description = "no transaction found")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id){
+    public ResponseEntity<?> findById(@PathVariable Long id) {
         Transaction transaction = transactionService.findById(id);
         TransactionDTO transactionDTO = transactionService.fromDTO(transaction);
         return new ResponseEntity<>(transactionDTO, HttpStatus.OK);
@@ -63,7 +63,7 @@ public class TransactionController {
             @ApiResponse(responseCode = "404", description = "no user found")
     })
     @GetMapping("/user/{id}")
-    public ResponseEntity<?> findByUser(@PathVariable Long id){
+    public ResponseEntity<?> findByUser(@PathVariable Long id) {
         User user = userService.findById(id);
         List<Transaction> transactions = transactionService.findByUser(user);
         List<TransactionDTO> transactionsDTO = transactions.stream().map(obj -> transactionService.fromDTO(obj))
@@ -71,6 +71,6 @@ public class TransactionController {
         if (transactionsDTO.isEmpty()) {
             return new ResponseEntity<>(" no Transactions found ", HttpStatus.NO_CONTENT);
         }
-            return new ResponseEntity<List<TransactionDTO>>(transactionsDTO, HttpStatus.OK);
+        return new ResponseEntity<List<TransactionDTO>>(transactionsDTO, HttpStatus.OK);
     }
 }
